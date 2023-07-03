@@ -1,0 +1,116 @@
+#
+# Global data (gender, age, and fat)
+#
+    .data
+    .comm gender,1
+    .global gender
+    .comm age,1
+    .global age
+    .comm fat,1
+    .global fat
+
+    
+    lds  r18, gender
+    lds  r19, age
+    lds  r20, fat
+
+    ldi  r21, 0x0F
+    cp   r18, r21
+    brsh female
+    ldi  r21, 60    ;male
+    cp   age, r21
+    brsh rm3        ;branch to age >= 60
+    ldi  r21, 40
+    cp   age, r21
+    brsh rm2        ;branch to age >= 40
+
+    ldi  r21, 30    ;branch where age >= 20
+    cp   fat, r21
+    brsh vhigh      ;branch to very high light pattern
+
+    ldi  r21, 25
+    cp   fat, r21
+    brsh high
+
+    ldi  r21, 13
+    cp   fat, r21
+    brsh normal
+    jmp -low
+
+rm2:                 ;branch where age >=40
+    ldi  r21, 28    
+    cp   fat, r21
+    brsh vhigh      
+
+    ldi  r21, 22
+    cp   fat, r21
+    brsh high
+
+    ldi  r21, 11
+    cp   fat, r21
+    brsh normal
+    jmp -low
+
+rm3:    
+    ldi  r21, 30    ;branch where age >= 60
+    cp   fat, r21
+    brsh vhigh      ;branch to very high light pattern
+
+    ldi  r21, 25
+    cp   fat, r21
+    brsh high
+
+    ldi  r21, 13
+    cp   fat, r21
+    brsh normal
+    jmp -low
+    
+female: 
+    ldi  r21, 60    ;female
+    cp   age, r21
+    brsh rf3        ;branch to age >= 60
+    ldi  r21, 40
+    cp   age, r21
+    brsh rf2        ;branch to age >= 40
+
+    ldi  r21, 39    ;branch where age >= 20
+    cp   fat, r21
+    brsh vhigh      ;branch to very high light pattern
+
+    ldi  r21, 33
+    cp   fat, r21
+    brsh high
+
+    ldi  r21, 21
+    cp   fat, r21
+    brsh normal
+    jmp  low
+
+rf2:                 ;branch where age >=40
+    ldi  r21, 40    
+    cp   fat, r21
+    brsh vhigh      
+
+    ldi  r21, 34
+    cp   fat, r21
+    brsh high
+
+    ldi  r21, 23
+    cp   fat, r21
+    brsh normal
+    jmp  low
+
+rf3:    
+    ldi  r21, 42    ;branch where age >= 60
+    cp   fat, r21
+    brsh vhigh      ;branch to very high light pattern
+
+    ldi  r21, 36
+    cp   fat, r21
+    brsh high
+
+    ldi  r21, 24
+    cp   fat, r21
+    brsh normal
+    jmp  low
+    
